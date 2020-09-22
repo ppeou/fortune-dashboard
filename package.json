@@ -1,11 +1,16 @@
 {
-  "name": "fortune-five-hundreds",
+  "name": "fortune-dashboard",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ag-grid-community/core": "23.2.1",
+    "@ag-grid-community/react": "23.2.1",
+    "@ag-grid-enterprise/all-modules": "23.2.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "ag-grid-community": "23.2.1",
+    "numeral": "^2.0.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.3"
