@@ -1,6 +1,3 @@
-import {startCase, difference} from 'lodash';
-import numeral from 'numeral';
-
 const dataTypeParser = {
   Money: (n) => Number(n),
   Number: (n) => Number(n),
@@ -62,7 +59,7 @@ const aggregateColumns = (filterable, sortable, item) => {
     default: 'text'
   };
   Object.keys(item).reduce((p, k) => {
-    const label = startCase(k);
+    const label = k;
     const dataField = k;
     const dataType = typeMap[typeof item[k]] || typeMap.default;
     p[dataField] = generateTemplate({
@@ -75,7 +72,6 @@ const aggregateColumns = (filterable, sortable, item) => {
   }, columns);
   Object.keys(filterable).reduce((p, k) => {
     const {filterable: hasFilter, options, title: label, type: dataType} = filterable[k];
-    console.log('--', p[k]);
     p[k] = generateTemplate({
       ...(p[k] || {}),
       filterable: !!hasFilter,
@@ -120,35 +116,4 @@ const convertData = (data) => {
   return {columns, filterable, items, sortable};
 };
 
-const formatters = {
-  money: ({value: v}) => v && numeral(v).format('$ 0,0[.]0'),
-  number: ({value}) => value,
-  percent: ({value}) => value && `${value}%`,
-  text: ({value}) => value
-}
-
-const buildAgGridColumns = (columns, preference) => {
-  const newColumns = Object.keys(columns).reduce((p, k) => {
-    const {dataField: field, label: headerName, dataType, options, ...rest} = columns[k];
-    const valueFormatter = formatters[dataType] || formatters.text;
-    p[k] = {
-      ...rest,
-      dataType,
-      field,
-      headerName,
-      valueFormatter
-    };
-    return p;
-  }, {});
-
-  const hiddenColumns = difference(Object.keys(newColumns), preference);
-
-  const cols = [
-    ...preference.map(k => ({...newColumns[k]})),
-    ...hiddenColumns.map(k => ({...newColumns[k], hide: true}))
-  ];
-  return cols;
-};
-
-
-export {convertData, buildAgGridColumns};
+module.exports = {convertData};

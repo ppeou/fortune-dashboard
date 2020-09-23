@@ -1,13 +1,15 @@
 import React from 'react';
+import {Provider} from 'react-redux';
+import store from './store';
 import Dashboard from './views/dashboard';
-//import {columns, filterable, items, sortable} from './service/data';
 
 function App() {
-  //console.log({columns, filterable, items, sortable});
   return (
-    <div className="App">
-      <Dashboard />
-    </div>
+    <Provider store={store}>
+      <div className="App">
+        <Dashboard/>
+      </div>
+    </Provider>
   );
 }
 
